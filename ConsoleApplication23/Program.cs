@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication23
 {
-    class table 
+    class Schedule
     {
         private string subject;
         private string day;
         private int hour;
         private int min;
-        public table()
-        { 
-        this.day = "";
-        this.subject = "";
-        this.hour = 0;
-        this.min = 0;
+        public Schedule()
+        {
+            this.day = "";
+            this.subject = "";
+            this.hour = 0;
+            this.min = 0;
         }
-        public table (string subject, string day, int hour, int min)
+        public Schedule(string subject, string day, int hour, int min)
         {
             this.day = day;
             this.subject = subject;
@@ -27,16 +27,15 @@ namespace ConsoleApplication23
             this.min = min;
         }
 
-        public void cw()
+        public void print()
         {
-            Console.WriteLine(subject + "  " + day + "  " + hour + " : " + min );
+            Console.WriteLine(subject + "  " + day + "  " + hour + " : " + min);
         }
 
         public string Subject
         {
             set { subject = value; }
             get { return subject; }
-        
         }
 
         public string Day
@@ -48,19 +47,16 @@ namespace ConsoleApplication23
         public int Hour
         {
             set
-            
             {
-
-                if (value < 8 || value > 16)
-                {
-                }
-                else
-                {
-                    hour = value;
-                }
-           
+                //if (value < 8 || value > 16)
+                //{
+                //}
+                //else
+                //{
+                hour = value;
+                //}
             }
-            get 
+            get
             {
                 return hour;
             }
@@ -70,20 +66,19 @@ namespace ConsoleApplication23
         {
             set
             {
-                if (value >= 60 || value < 0)
-                {
-                }
-                else
-                {
-                    min = value;
-                }
+                //if (value >= 60 || value < 0)
+                //{
+                //}
+                //else
+                //{
+                min = value;
+                //}
             }
             get
             {
                 return min;
             }
         }
-
     }
 
     class Program
@@ -91,23 +86,23 @@ namespace ConsoleApplication23
         static void Main(string[] args)
         {
             //int hour=0, min,
+            //string subject, day 
             int counter = 0;
             string wantmore;
-            //string subject, day 
-            table [] x = new table [7];
+            Schedule[] x = new Schedule[7];
 
             for (int i = 0; i < 2; i++)
             {
-                x[i] = new table();
+                x[i] = new Schedule();
                 Console.Write("Enter the name of the subject : ");
                 //subject
-                x[i].Subject= Console.ReadLine();
+                x[i].Subject = Console.ReadLine();
                 Console.Write("Enter the day of the subject : ");
                 //day
-                x[i].Day= Console.ReadLine();
+                x[i].Day = Console.ReadLine();
                 Console.Write("Enter the hour of the subject : ");
-                x[i].Hour= int.Parse(Console.ReadLine());
-                for (int j = 0;; j++)
+                x[i].Hour = int.Parse(Console.ReadLine());
+                for (int j = 0; ; j++)
                 {
                     if (x[i].Hour < 8 || x[i].Hour > 16)
                     {
@@ -117,11 +112,21 @@ namespace ConsoleApplication23
                     else
                         break;
                 }
-                
                 Console.Write("Enter the minute of the subject : ");
-                x[i].Min= int.Parse(Console.ReadLine());
-          
-                    for (int j = 0; j < i; j++)
+                x[i].Min = int.Parse(Console.ReadLine());
+                for (int j = 0; ; j++)
+                {
+                    if (x[i].Min < 0 || x[i].Min >= 60)
+                    {
+                        Console.WriteLine("we dont do that her. ");
+                        x[i].Min = int.Parse(Console.ReadLine());
+                    }
+                    else
+                        break;
+                }
+                for (int j = 0; j < i; j++)
+                {
+                    if (x[i].Day == x[j].Day)
                     {
                         if (x[i].Hour == x[j].Hour)
                         {
@@ -130,29 +135,28 @@ namespace ConsoleApplication23
                             j--;
                         }
                     }
-
-                    //for (int j = 0; j < i; j++)
-                    //{
-                    //    if (x[i].Min == x[j].Min)
-                    //    {
-                    //        Console.Write("Enter the minute agen plees : ");
-                    //        x[i].Min = int.Parse(Console.ReadLine());
-                    //        j--;
-                    //    }
-                    //}
-
+                }
+                //for (int j = 0; j < i; j++)
+                //{
+                //    if (x[i].Min == x[j].Min)
+                //    {
+                //        Console.Write("Enter the minute agen plees : ");
+                //        x[i].Min = int.Parse(Console.ReadLine());
+                //        j--;
+                //    }
+                //}
                 Console.WriteLine("Do you want to add more subjects ? ");
                 wantmore = Console.ReadLine();
-                if (wantmore=="no")
+                if (wantmore == "no")
                 {
                     break;
                 }
-                counter+=1;
+                counter += 1;
             }
             for (int i = 0; i <= counter; i++)
-			{
-			 x[i].cw();
-			}
+            {
+                x[i].print();
+            }
         }
     }
 }
